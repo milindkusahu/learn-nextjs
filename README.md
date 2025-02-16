@@ -31,7 +31,7 @@ This repository documents everything I’m learning about Next.js.
 | **Bundle Size**  | Can be large if not optimized        | Smaller due to server components   |
 | **API Handling** | Needs external backend or Firebase   | Built-in API routes                |
 
-**Why Choose Next.js?**
+### **Why Choose Next.js?**
 
 * Better SEO and performance
 * Built-in routing, API routes, and image optimization
