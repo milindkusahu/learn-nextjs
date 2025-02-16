@@ -3,6 +3,8 @@
 }
 // export const dynamic = "force-dynamic";
 
+import Link from "next/link";
+
 export default async function DataFetching() {
   const data = await fetch("https://jsonplaceholder.typicode.com/users/", {
     // cache: "no-store",
@@ -18,10 +20,10 @@ export default async function DataFetching() {
       DataFetching
       <div>
         {users &&
-          users.map((user, index) => (
-            <ul key={index}>
-              <li>{user.name}</li>
-            </ul>
+          users.map((user: any) => (
+            <li key={user.username}>
+              <Link href={`/user/${user.id}`}>{user.username}</Link>
+            </li>
           ))}
       </div>
     </div>

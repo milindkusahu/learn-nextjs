@@ -258,3 +258,134 @@ Next.js provides built-in methods for client-side navigation:
 * Helps optimize performance by reducing client-side data fetching.
 
 ---
+
+## 🚀 SEO on Steroids in Next.js
+
+Next.js provides excellent SEO support with built-in metadata handling, dynamic sitemap generation, and Open Graph (OG) image support.
+
+## 📌 Static Metadata Generation
+
+Next.js allows you to define static metadata at the page level using the `metadata` export:
+
+```tsx
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Milind Kumar Sahu | Homepage",
+  description: "Home Page description",
+  alternates: {
+    canonical: "http://localhost:3000/",
+  },
+  keywords: ["Home", "Page", "Keywords"],
+  publisher: "Milind Kumar Sahu",
+  robots: "index, follow",
+  openGraph: {
+    type: "website",
+    url: "http://localhost:3000/",
+    title: "Milind Kumar Sahu | Homepage",
+    description: "Home Page description",
+    images: {
+      url: "http://localhost:3000/",
+      alt: "Milind Kumar Sahu | Homepage",
+    },
+  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: "no",
+};
+```
+
+## 🔄 Dynamic Metadata Generation
+
+For dynamic metadata based on page parameters (e.g., user profiles), you can use `generateMetadata()` in a server component:
+
+```tsx
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+
+  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+  const user = await res.json();
+
+  return {
+    title: user.name,
+    description: `${user.address.street} ${user.address.suite} ${user.address.city}`,
+    keywords: ["User", "Info"],
+    robots: "index, follow",
+    publisher: user.name,
+    alternates: {
+      canonical: `http://localhost:3000/user/${id}`,
+    },
+    openGraph: {
+      type: "website",
+      url: `http://localhost:3000/user/${id}`,
+      title: user.name,
+      description: user.email,
+      images: {
+        url: "http://localhost:3000/default-user-image.jpg",
+        alt: user.name,
+      },
+    },
+  };
+}
+```
+
+## 🖼️ OG and Twitter Image Generation
+
+Next.js automatically generates Open Graph (OG) and Twitter meta tags if `opengraph-image.(jpg|jpeg|png|gif)` and `twitter-image.jpg` exist in the public folder.
+
+## 🤖 Robots.txt
+
+Define rules for search engines using a `robots.txt` file. This helps control crawling behavior.
+
+📖 [Learn More](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)
+
+## 🌍 Dynamic Sitemap Generation
+
+Next.js supports dynamic sitemaps, helping search engines discover your pages easily.
+
+📖 [Learn More](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)
+
+## 🎨 Dynamic OG Image Generation
+
+Generate dynamic OG images for social media previews using `ImageResponse`:
+
+```tsx
+import { ImageResponse } from "next/og";
+
+export const runtime = "edge";
+
+export async function GET(req: Request) {
+  const title = "My Dynamic Image";
+
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          fontSize: 128,
+          background: "white",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          padding: 32,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {title}
+      </div>
+    ),
+    { width: 1200, height: 630 }
+  );
+}
+```
+
+📖 [Next.js Image Response Docs](https://nextjs.org/docs/app/api-reference/functions/image-response)
+
+📖 [OG Playground](https://og-playground.vercel.app/)
+
+---
