@@ -2,6 +2,24 @@
 
 This repository documents everything I’m learning about Next.js.
 
+## Table of Contents
+
+- [React vs Next.js](#-react-vs-nextjs)
+- [Why Choose Next.js?](#why-choose-nextjs)
+- [Directory Structure](#-directory-structure)
+- [Pages Router vs App Router](#-pages-router-vs-app-router)
+- [Server Components Explained](#-server-components-explained)
+- [Fixing Hydration Errors](#-fixing-hydration-errors)
+- [Routing in Next.js](#routing-in-nextjs)
+- [Data Fetching Patterns](#data-fetching-patterns)
+- [SEO on Steroids in Next.js](#-seo-on-steroids-in-nextjs)
+- [Static Metadata Generation](#-static-metadata-generation)
+- [Dynamic Metadata Generation](#-dynamic-metadata-generation)
+- [OG and Twitter Image Generation](#-og-and-twitter-image-generation)
+- [Robots.txt](#-robotstxt)
+- [Dynamic Sitemap Generation](#-dynamic-sitemap-generation)
+- [Dynamic OG Image Generation](#-dynamic-og-image-generation)
+
 ## 📌 React vs Next.js
 
 | Feature                | React                                | Next.js                            |
