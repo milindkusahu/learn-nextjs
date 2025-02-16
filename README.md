@@ -22,6 +22,8 @@ This repository documents everything I’m learning about Next.js.
 
 ## 📌 React vs Next.js
 
+![react vs nextjs](https://github.com/milindkusahu/learn-nextjs/blob/master/image/README/react-vs-nextjs.png)
+
 | Feature                | React                                | Next.js                            |
 | ---------------------- | ------------------------------------ | ---------------------------------- |
 | **Rendering**    | Client-Side Rendering (CSR)          | Supports CSR, SSR, SSG, ISR        |
@@ -211,7 +213,7 @@ app/contact/page.tsx  -->  `/contact`
 * Next.js uses **server components** by default, allowing layouts to be rendered on the server.
 * This helps reduce the **client-side JavaScript bundle size** and improves  **performance & SEO.**
 
-![nextjs server layouts](https://file+.vscode-resource.vscode-cdn.net/Users/milindsahu/Projects/learn-nextjs/image/README/nextjs-server-layouts.png "nextjs server layouts")
+![nextjs server layouts](https://raw.githubusercontent.com/milindkusahu/learn-nextjs/refs/heads/master/image/README/nextjs-server-layouts.png)
 
 ### Navigating Between Routes
 
