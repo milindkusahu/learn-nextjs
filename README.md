@@ -97,7 +97,7 @@ export default function Counter() {
 
 ### **What is a Hydration Error?**
 
-* Happens when the **server-rendered HTML** doesn’t match the  **client-rendered output** .
+* Happens when the **server-rendered HTML** doesn’t match the **client-rendered output** .
 * Common causes:
   * Using `useEffect` incorrectly.
   * Dynamically changing content before hydration.
@@ -115,3 +115,102 @@ return (
 ⚠️ **Note:** This hides warnings but doesn’t fix the root cause.
 
 ✅ A better fix is to ensure that **dynamic data** matches on both server and client.
+
+---
+
+## Routing in Next.js
+
+Next.js provides **file-based routing**, meaning that the file structure inside the `app/` directory determines the routes.
+
+### Basic Routing
+
+- **File Structure:**
+  ```plaintext
+  app/user/page.tsx  --->  Renders as `/user`
+  ```
+
+* **Supported file extensions:** `.js`, `.jsx`, `.tsx`
+* Next.js automatically creates routes based on folder and file names.
+
+### Special Route Files
+
+Next.js has **special files** that enhance routing functionality:
+
+| File                       | Purpose                                                             |
+| -------------------------- | ------------------------------------------------------------------- |
+| **layout.tsx**       | Shared UI for a segment and its children.                           |
+| **page.tsx**         | The unique UI of a route, making it publicly accessible.            |
+| **loading.tsx**      | Displays a loading state for a segment while waiting for data.      |
+| **not-found.tsx**    | Custom "Not Found" UI for a segment.                                |
+| **error.tsx**        | Handles errors within a specific segment.                           |
+| **global-error.tsx** | Global error handling across the entire app.                        |
+| **route.ts**         | Defines server-side API endpoints.                                  |
+| **template.tsx**     | A re-rendered version of `layout.tsx`, allowing fresh UI updates. |
+| **default.tsx**      | Acts as a fallback UI for Parallel Routes.                          |
+
+### Static Routes
+
+Static routes are defined by simple folder and file structures:
+
+```plaintext
+app/about/page.tsx  -->  `/about`
+app/contact/page.tsx  -->  `/contact`
+```
+
+### Dynamic Routes
+
+* Dynamic routes use **square brackets (`[ ]`)** to define route parameters.
+* Example:
+
+  ```plaintext
+  app/user/[id]/page.tsx  -->  `/user/:id`
+  ```
+
+  Usage:
+
+  ```tsx
+  import { useParams } from 'next/navigation';
+
+  export default function UserPage() {
+      const params = useParams();
+      return <h1>User ID: {params.id}</h1>;
+  }
+  ```
+
+### Routing Groups
+
+* Parentheses **`()`** can be used to **group routes** without affecting the URL structure.
+* Example:
+
+  ```plaintext
+  app/(dashboard)/users/page.tsx  -->  `/users`
+  ```
+
+  The **`(dashboard)`** folder is ignored in the URL.
+
+### Server Layouts in Next.js
+
+* Next.js uses **server components** by default, allowing layouts to be rendered on the server.
+* This helps reduce the **client-side JavaScript bundle size** and improves  **performance & SEO.**
+
+![nextjs server layouts](https://file+.vscode-resource.vscode-cdn.net/Users/milindsahu/Projects/learn-nextjs/image/README/nextjs-server-layouts.png "nextjs server layouts")
+
+### Navigating Between Routes
+
+Next.js provides built-in methods for client-side navigation:
+
+* **Preferred:** `<Link>` for fast, client-side navigation.
+  ```tsx
+  import Link from 'next/link';
+
+  function Home() {
+      return <Link href="/about">Go to About</Link>;
+  }
+  ```
+* **Standard `<a>` tag** : Triggers a full page reload (not recommended for internal links).
+
+```tsx
+  <a href="/about">Go to About</a>
+```
+
+---
