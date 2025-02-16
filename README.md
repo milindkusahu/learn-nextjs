@@ -214,3 +214,47 @@ Next.js provides built-in methods for client-side navigation:
 ```
 
 ---
+
+## Data Fetching Patterns
+
+### Server-Side Data Fetching
+
+* Fetches data on the server before sending the page to the client.
+* Improves SEO since the content is pre-rendered.
+* Reduces the JavaScript bundle size on the client.
+
+### Streaming Server-Side Data and Loading
+
+* **`loading.js`** : Displays a loading state while waiting for server-rendered data.
+* Enables progressive rendering, sending HTML chunks as data is fetched.
+* SEO benefits since content appears faster for search engines.
+
+### Client-Side Data Fetching
+
+* Uses React hooks like `useEffect` or `useSWR` for fetching data in the browser.
+* Good for user-specific or real-time data that doesn’t impact SEO.
+* Example: Fetching user dashboard data after the page loads.
+
+### Cache Data Revalidation
+
+* **Server-Side Fetching:** Uses `fetch()` to get fresh data.
+* **Caching:** `fetch()` caches data indefinitely unless revalidated.
+* **Revalidation Strategies:**
+  * **Time-based:** Revalidate after a fixed interval (e.g., blogs update every 7 days).
+  * **On-demand:** Manually trigger revalidation when data updates (e.g., stock trading).
+* Helps balance performance and freshness of data.
+
+### API Routes in Next.js
+
+* API routes live inside the `app/api/route.ts` directory.
+* Useful for handling backend logic like authentication, database queries, or third-party API requests.
+* Automatically optimized by Next.js for efficient data handling.
+
+### How Server Actions Work?
+
+* Declared using `"use server";` at the top of the function.
+* Must be **asynchronous (`async`)** to handle data processing.
+* Eliminates the need for API routes in some cases by directly executing server logic.
+* Helps optimize performance by reducing client-side data fetching.
+
+---
