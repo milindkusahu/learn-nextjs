@@ -1,9 +1,12 @@
-import { ModeToggle } from "@/components/theme-toggle";
+import { getServerSession } from "next-auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+  console.log(session);
   return (
     <div>
-      <ModeToggle />
+      <p>{session?.user?.name}</p>
+      <p>Blog will show up here</p>
     </div>
   );
 }
