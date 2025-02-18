@@ -1,9 +1,10 @@
 "use client";
 
 import EditorJS from "@editorjs/editorjs";
-
+import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -17,27 +18,27 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef } from "react";
+import { createBlog } from "../actions";
 
 const formSchema = z.object({
   title: z.string().min(3).max(50),
-  content: z.string().min(25),
 });
 
 type FormSchemaValues = z.infer<typeof formSchema>;
 
-export default function CreateBlogForm() {
+const CreateBlogForm = () => {
+  const router = useRouter();
+
   const form = useForm<FormSchemaValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      content: "",
     },
   });
 
-  const editorRef = useRef<EditorJS | null>(null);
+  const editorRef = React.useRef<EditorJS | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (editorRef.current) return;
 
     const editor = new EditorJS({
@@ -50,8 +51,13 @@ export default function CreateBlogForm() {
   async function onSubmit(values: FormSchemaValues) {
     const { title } = values;
     const outputFromEditor = await editorRef?.current?.save();
-    console.log(outputFromEditor?.blocks);
-    console.log(title);
+
+    await createBlog({
+      blocks: JSON.stringify(outputFromEditor?.blocks),
+      title,
+    });
+
+    router.push("/admin");
   }
 
   return (
@@ -67,19 +73,21 @@ export default function CreateBlogForm() {
                 <FormControl>
                   <Input placeholder="Type here..." {...field} />
                 </FormControl>
-                <FormDescription>This is your title for blog.</FormDescription>
+                <FormDescription>This is your title for blog</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <div className="bg-muted border border-gray-200 rounded-md">
+          <div className="bg-muted rounded-lg p-2">
             <div id="editorjs" />
           </div>
 
-          <Button type="submit">Save</Button>
+          <Button>Save</Button>
         </form>
       </Form>
     </main>
   );
-}
+};
+
+export default CreateBlogForm;

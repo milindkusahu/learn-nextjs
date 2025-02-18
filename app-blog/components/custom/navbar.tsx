@@ -17,15 +17,12 @@ const NavBar = () => {
   const { data } = useSession();
 
   return (
-    <nav className="flex bg-muted justify-around items-center p-4">
-      <h3>Blogify</h3>
-      <div>
-        <Link href="/">Home</Link>
-      </div>
-      <div>
-        <Link href="/admin">Admin</Link>
-      </div>
-      <div>
+    <nav className="flex py-4 justify-around items-center">
+      <Link href="/">
+        <h3>Blogify</h3>
+      </Link>
+      <div className="flex items-center justify-end gap-2">
+        <ModeToggle />
         {data?.user ? (
           <DropdownMenu>
             <DropdownMenuTrigger>
@@ -34,34 +31,33 @@ const NavBar = () => {
                   <Image
                     className="rounded-full"
                     src={data.user.image}
-                    height={30}
-                    width={30}
-                    alt={data.user.name}
+                    height={20}
+                    width={20}
+                    alt="Users Image"
                   />
                 )}
-                <p className="text-primary font-extralight">{data.user.name}</p>
+                <p>{data.user.name}</p>
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/admin">Admin</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => signOut()}>
+                Logout
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
           <Link
-            className="bg-primary text-secondary text-sm px-2 py-1 rounded-sm font-extralight"
+            className="bg-primary text-secondary text-sm px-2 py-1 rounded-lg font-bold"
             href="/signin"
           >
-            Signin
+            Sign in
           </Link>
         )}
-      </div>
-      <div>
-        <ModeToggle />
       </div>
     </nav>
   );
